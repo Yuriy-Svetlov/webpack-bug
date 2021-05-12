@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>123</title>
+    </head>
+
+    <body>
+        <div style="margin: 0 auto; padding: 20px; font-size: 24px; " id="myDiv">Please wait 7 seconds</div>
+
+        <div>This is my browser log after 7 seconds and changed ./src/index.js</div>
+        <img width="700px;" src="./log.png">
+
+        <div>When I changed again ./src/index.js</div>
+        <img width="700px;" src="./log_2.png">
+        
+
+        <script src="./bundle.js"></script>
+        <script>
+            setTimeout(function(){ 
+              refresh_script(
+                document.getElementsByTagName("script")[0]
+              );
+            }, 3000);
+
+
+            setTimeout(function(){ 
+              refresh_script(
+                document.getElementsByTagName("script")[0]
+              );
+            }, 6000);
+
+
+            setTimeout(function(){ 
+                document.getElementById("myDiv").textContent = "Change ./src/index.js and see browser log.";
+            }, 7000);
+
+            function refresh_script($old_node){
+              const $new_node = document.createElement('script');
+
+              Object.keys($old_node.attributes).forEach(function(i){
+                $new_node.setAttribute(
+                  $old_node.attributes[i].nodeName, 
+                  $old_node.attributes[i].nodeValue
+                );
+              });
+
+              $old_node.parentNode.replaceChild($new_node, $old_node); 
+            }
+        </script>
+    </body>
+</html>
